@@ -12,7 +12,7 @@ public interface AtividadeService {
 
     public void editar(Atividade atividade);
 
-    public void deletar(long idAtividade) throws Exception;heroku l
+    public void deletar(long idAtividade) throws Exception;
 
     public List<Atividade> listar();
 
