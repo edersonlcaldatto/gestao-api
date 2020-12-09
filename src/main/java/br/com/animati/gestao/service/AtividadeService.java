@@ -1,7 +1,6 @@
 package br.com.animati.gestao.service;
 
 import br.com.animati.gestao.entity.Atividade;
-import br.com.animati.gestao.entity.Cliente;
 
 import java.util.List;
 import java.util.Optional;
