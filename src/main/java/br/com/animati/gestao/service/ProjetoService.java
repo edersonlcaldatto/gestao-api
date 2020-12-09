@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ProjetoService {
 
-    public void cadastrar(Projeto projeto);
+    public Projeto cadastrar(Projeto projeto);
 
     public void editar(Projeto projeto);
 

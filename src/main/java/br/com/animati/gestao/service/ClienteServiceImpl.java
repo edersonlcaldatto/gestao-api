@@ -15,8 +15,9 @@ public class ClienteServiceImpl implements ClienteService {
     private ClienteDAO clienteDAO;
 
     @Override
-    public void cadastrar(Cliente cliente) {
+    public Cliente cadastrar(Cliente cliente) {
         clienteDAO.save(cliente);
+        return cliente;
     }
 
     @Override

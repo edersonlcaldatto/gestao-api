@@ -15,8 +15,9 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     private ResponsavelDAO responsavelDAO;
 
     @Override
-    public void cadastrar(Responsavel responsavel) {
+    public Responsavel cadastrar(Responsavel responsavel) {
         responsavelDAO.save(responsavel);
+        return responsavel;
     }
 
     @Override

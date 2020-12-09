@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AtividadeService {
 
-    public void cadastrar(Atividade atividade);
+    public Atividade cadastrar(Atividade atividade);
 
     public void editar(Atividade atividade);
 

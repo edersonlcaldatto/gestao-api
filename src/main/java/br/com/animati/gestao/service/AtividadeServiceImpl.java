@@ -15,8 +15,9 @@ public class AtividadeServiceImpl implements AtividadeService {
     private AtividadeDAO atividadeDAO;
 
     @Override
-    public void cadastrar(Atividade atividade) {
+    public Atividade cadastrar(Atividade atividade) {
         atividadeDAO.save(atividade);
+        return atividade;
     }
 
     @Override

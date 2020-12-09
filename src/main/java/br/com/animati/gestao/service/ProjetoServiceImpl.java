@@ -15,8 +15,9 @@ public class ProjetoServiceImpl implements ProjetoService {
     private ProjetoDAO projetoDAO;
 
     @Override
-    public void cadastrar(Projeto projeto) {
+    public Projeto cadastrar(Projeto projeto) {
         projetoDAO.save(projeto);
+        return projeto;
     }
 
     @Override

@@ -2,6 +2,7 @@ package br.com.animati.gestao.controller;
 
 import br.com.animati.gestao.DAO.ProjetoDAO;
 import br.com.animati.gestao.entity.Projeto;
+import br.com.animati.gestao.service.ProjetoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,11 @@ import java.util.Optional;
 @RequestMapping("/projetos")
 public class ProjetoController {
     @Autowired
-    private ProjetoDAO projetoDAO;
+    private ProjetoServiceImpl projetoDAO;
 
     @GetMapping
     public List<Projeto> listar(){
-        return projetoDAO.findAll();
+        return projetoDAO.listar();
     }
 
     @GetMapping("/{id}")
@@ -33,14 +34,14 @@ public class ProjetoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Projeto cadastrar(@RequestBody Projeto projeto){
-        return projetoDAO.save(projeto);
+        return projetoDAO.cadastrar(projeto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") long id ){
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") long id ) throws Exception {
         Optional<Projeto> projetoDelete = projetoDAO.findById(id);
         if(projetoDelete.isPresent()) {
-            projetoDAO.deleteById(id);
+            projetoDAO.deletar(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,7 +55,7 @@ public class ProjetoController {
             projeto.setCliente(newProjeto.getCliente());
             projeto.setDescricao(newProjeto.getDescricao());
 
-            projetoDAO.save(projeto);
+            projetoDAO.cadastrar(projeto);
             return new ResponseEntity<Projeto>(projeto, HttpStatus.OK);
         }else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

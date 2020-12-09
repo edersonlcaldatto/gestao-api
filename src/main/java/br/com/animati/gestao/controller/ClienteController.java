@@ -2,6 +2,7 @@ package br.com.animati.gestao.controller;
 
 import br.com.animati.gestao.DAO.ClienteDAO;
 import br.com.animati.gestao.entity.Cliente;
+import br.com.animati.gestao.service.ClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,11 @@ import java.util.Optional;
 public class ClienteController {
 
     @Autowired
-    private ClienteDAO clienteDAO;
+    private ClienteServiceImpl clienteDAO;
 
     @GetMapping
     public List<Cliente> listar(){
-        return clienteDAO.findAll();
+        return clienteDAO.listar();
     }
 
     @GetMapping("/{id}")
@@ -34,14 +35,14 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente cadastrar(@RequestBody Cliente cliente){
-        return clienteDAO.save(cliente);
+        return clienteDAO.cadastrar(cliente);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") long id ){
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") long id ) throws Exception {
         Optional<Cliente> clienteDelete = clienteDAO.findById(id);
         if(clienteDelete.isPresent()) {
-            clienteDAO.deleteById(id);
+            clienteDAO.deletar(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,7 +55,7 @@ public class ClienteController {
             cliente.setCnpj(newCliente.getCnpj());
             cliente.setNome(newCliente.getNome());
 
-            clienteDAO.save(cliente);
+            clienteDAO.cadastrar(cliente);
             return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
         }else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

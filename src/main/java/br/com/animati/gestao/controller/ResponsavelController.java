@@ -2,6 +2,7 @@ package br.com.animati.gestao.controller;
 
 import br.com.animati.gestao.DAO.ResponsavelDAO;
 import br.com.animati.gestao.entity.Responsavel;
+import br.com.animati.gestao.service.ResponsavelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,11 @@ import java.util.Optional;
 public class ResponsavelController {
 
     @Autowired
-    private ResponsavelDAO responsavelDAO;
+    private ResponsavelServiceImpl responsavelDAO;
 
     @GetMapping
     public List<Responsavel> listar(){
-        return responsavelDAO.findAll();
+        return responsavelDAO.listar();
     }
 
     @GetMapping("/{id}")
@@ -34,14 +35,14 @@ public class ResponsavelController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Responsavel cadastrar(@RequestBody Responsavel responsavel){
-        return responsavelDAO.save(responsavel);
+        return responsavelDAO.cadastrar(responsavel);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") long id ){
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") long id ) throws Exception {
         Optional<Responsavel> responsavelDelete = responsavelDAO.findById(id);
         if(responsavelDelete.isPresent()) {
-            responsavelDAO.deleteById(id);
+            responsavelDAO.deletar(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,7 +55,7 @@ public class ResponsavelController {
             responsavel.setNome(newResponsavel.getNome());
             responsavel.setFuncao(newResponsavel.getFuncao());
 
-            responsavelDAO.save(responsavel);
+            responsavelDAO.cadastrar(responsavel);
             return new ResponseEntity<Responsavel>(responsavel, HttpStatus.OK);
         }else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

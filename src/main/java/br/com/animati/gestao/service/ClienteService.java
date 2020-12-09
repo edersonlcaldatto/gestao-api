@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ClienteService {
 
-    public void cadastrar(Cliente cliente);
+    public Cliente cadastrar(Cliente cliente);
 
     public void editar(Cliente cliente);
 

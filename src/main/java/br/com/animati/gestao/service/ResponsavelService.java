@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ResponsavelService {
 
-    public void cadastrar(Responsavel reponsavel);
+    public Responsavel cadastrar(Responsavel reponsavel);
 
     public void editar(Responsavel reponsavel);
 
